@@ -116,3 +116,50 @@ navItems.forEach((navItem) => {
         navigation.classList.remove("active");
     });
 });
+
+// Contact Form (FormSubmit.co AJAX)
+const contactForm = document.getElementById('contact-form');
+const formMessage = document.getElementById('form-message');
+
+if (contactForm && formMessage) {
+    contactForm.addEventListener('submit', function(e) {
+        
+        e.preventDefault();
+
+        const submitButton = contactForm.querySelector('.btn');
+        submitButton.disabled = true;
+        submitButton.innerHTML = 'Sending...';
+
+        const formData = new FormData(contactForm);
+        const formAction = contactForm.getAttribute('action');
+
+        fetch(formAction, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            if (data.success == 'true') {
+                formMessage.innerHTML = "<span style='color: green;'>Message sent successfully!</span>";
+                contactForm.reset(); 
+            } else {
+                formMessage.innerHTML = "<span style='color: red;'>Oops! Something went wrong. Please try again.</span>";
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            formMessage.innerHTML = "<span style='color: red;'>Oops! Something went wrong.</span>";
+        })
+        .finally(() => {
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
+            
+            setTimeout(() => {
+                formMessage.innerHTML = '';
+            }, 3000);
+        });
+    });
+}
