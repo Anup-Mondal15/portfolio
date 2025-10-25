@@ -117,32 +117,39 @@ navItems.forEach((navItem) => {
     });
 });
 
-// Contact Form (FormSubmit.co AJAX)
+// --- Contact Form (FormSubmit.co AJAX) ---
 const contactForm = document.getElementById('contact-form');
 const formMessage = document.getElementById('form-message');
 
 if (contactForm && formMessage) {
     contactForm.addEventListener('submit', function(e) {
         
-        e.preventDefault();
+        e.preventDefault(); 
 
         const submitButton = contactForm.querySelector('.btn');
         submitButton.disabled = true;
         submitButton.innerHTML = 'Sending...';
 
         const formData = new FormData(contactForm);
+        
+        const dataObject = {};
+        formData.forEach((value, key) => {
+            dataObject[key] = value;
+        });
+
         const formAction = contactForm.getAttribute('action');
 
         fetch(formAction, {
             method: 'POST',
-            body: formData,
             headers: {
-                'Accept': 'application/json'
-            }
+                'Content-Type': 'application/json', 
+                'Accept': 'application/json'      
+            },
+            body: JSON.stringify(dataObject) 
         })
         .then(response => response.json()) 
         .then(data => {
-            if (data.success == 'true') {
+            if (data.success == 'true' || data.success == true) {
                 formMessage.innerHTML = "<span style='color: green;'>Message sent successfully!</span>";
                 contactForm.reset(); 
             } else {
@@ -151,7 +158,7 @@ if (contactForm && formMessage) {
         })
         .catch(error => {
             console.error('Error:', error);
-            formMessage.innerHTML = "<span style='color: red;'>Oops! Something went wrong.</span>";
+            formMessage.innerHTML = "<span style='color: red;'>Oops! Network error.</span>";
         })
         .finally(() => {
             submitButton.disabled = false;
