@@ -407,21 +407,31 @@
                 </ul>
             </div>
             <div class="contact-right">
-                <p>I'm always open to discussing<br><span>Any Educational problems.</span></p>
-                <from action="" class="contact-form">
-                    <div class="first-row">
-                        <input type="text" placeholder="Name">
-                    </div>
-                    <div class="second-row">
-                        <input type="email" placeholder="E-mail">
-                        <input type="text" placeholder="Subject">
-                    </div>
-                    <div class="third-row">
-                        <textarea name="message" id="" rows="7" placeholder="Message"></textarea>
-                    </div>
-                    <button class="btn" type="submit">Send Message <i class="fas fa-paper-plane"></i></button>
-                </from>
-            </div>
+    <p>I'm always open to discussing<br><span>Any Educational problems.</span></p>
+    
+    <form id="contact-form" action="https://formsubmit.co/anupmondal6970@gmail.com" method="POST" class="contact-form">
+        
+        <div class="first-row">
+            <input type="text" name="name" placeholder="Name" required>
+        </div>
+        
+        <div class="second-row">
+            <input type="email" name="email" placeholder="E-mail" required>
+            <input type="text" name="subject" placeholder="Subject" required>
+        </div>
+        
+        <div class="third-row">
+            <textarea name="message" id="" rows="7" placeholder="Message" required></textarea>
+        </div>
+        
+        <input type="hidden" name="_captcha" value="false">
+
+        <button class="btn" type="submit">Send Message <i class="fas fa-paper-plane"></i></button>
+    
+    </form> 
+    
+    <div id="form-message" style="margin-top: 20px;"></div>
+</div>
         </div>
     </div>
 </section>
@@ -456,7 +466,7 @@
         </div>
     </div>
     <div class="footer-copyright group">
-        <p>Copyright © 2022 <span>anup@gmail.com.</span> All Rights Reserved.</p>
+        <p>Copyright © 2025 <span>anupmondal6970@gmail.com.</span> All Rights Reserved.</p>
     </div>
 </footer>
 
